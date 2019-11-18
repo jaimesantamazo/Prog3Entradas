@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
+import javax.swing.JComboBox;
 
 public class Pago {
 
@@ -18,6 +20,7 @@ public class Pago {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JTextField textField_3;
 
 	/**
 	 * Launch the application.
@@ -54,46 +57,46 @@ public class Pago {
 		frame3.getContentPane().setLayout(null);
 		
 		JLabel lblNumeroTarjeta = new JLabel("Numero tarjeta:");
-		lblNumeroTarjeta.setBounds(71, 113, 126, 20);
+		lblNumeroTarjeta.setBounds(58, 179, 126, 20);
 		frame3.getContentPane().add(lblNumeroTarjeta);
 		
 		JLabel lblCcv = new JLabel("CCV:");
-		lblCcv.setBounds(71, 168, 69, 20);
+		lblCcv.setBounds(58, 225, 69, 20);
 		frame3.getContentPane().add(lblCcv);
 		
 		JLabel lblDniCliente = new JLabel("DNI cliente:");
-		lblDniCliente.setBounds(71, 221, 126, 20);
+		lblDniCliente.setBounds(58, 257, 126, 20);
 		frame3.getContentPane().add(lblDniCliente);
 		
 		JLabel lblIntroduceLosDatos = new JLabel("Introduce los datos de tu tarjeta para validar los datos");
 		lblIntroduceLosDatos.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
 		lblIntroduceLosDatos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIntroduceLosDatos.setBounds(15, 32, 534, 49);
+		lblIntroduceLosDatos.setBounds(15, 16, 534, 49);
 		frame3.getContentPane().add(lblIntroduceLosDatos);
 		
 		textField = new JTextField();
-		textField.setBounds(212, 110, 278, 26);
+		textField.setBounds(212, 173, 278, 26);
 		frame3.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(212, 165, 111, 26);
+		textField_1.setBounds(212, 222, 111, 26);
 		frame3.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(212, 218, 146, 26);
+		textField_2.setBounds(212, 254, 146, 26);
 		frame3.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
 		JButton btnPagar = new JButton("Pagar");
 		btnPagar.setBackground(Color.GREEN);
-		btnPagar.setBounds(336, 292, 115, 29);
+		btnPagar.setBounds(344, 313, 115, 29);
 		frame3.getContentPane().add(btnPagar);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBackground(Color.RED);
-		btnCancel.setBounds(95, 292, 115, 29);
+		btnCancel.setBounds(97, 313, 115, 29);
 		frame3.getContentPane().add(btnCancel);
 		
 		JButton btnNewButton = new JButton("Vuelta al menu");
@@ -112,5 +115,32 @@ public class Pago {
 		btnNewButton.setBackground(Color.YELLOW);
 		btnNewButton.setBounds(15, 358, 139, 29);
 		frame3.getContentPane().add(btnNewButton);
+		
+		JLabel lblCorreo = new JLabel("E-mail:");
+		lblCorreo.setBounds(58, 143, 69, 20);
+		frame3.getContentPane().add(lblCorreo);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(212, 140, 278, 26);
+		frame3.getContentPane().add(textField_3);
+		textField_3.setColumns(10);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		comboBox.setBounds(212, 97, 278, 26);
+		frame3.getContentPane().add(comboBox);
+		comboBox.addItem("entrada para el dreambeach");
+		comboBox.addItem("entrada para el medusa");
+		comboBox.addItem("entrada para el riverland");
+		comboBox.addItem("entrada para el bilbao bbk");
+		comboBox.addItem("entrada para el viñarock");
+		
+		JLabel lblFestival = new JLabel("Festival:");
+		lblFestival.setBounds(58, 100, 69, 20);
+		frame3.getContentPane().add(lblFestival);
 	}
 }

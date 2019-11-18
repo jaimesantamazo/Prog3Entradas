@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import java.awt.Color;
+import java.awt.Desktop;
+
 import javax.swing.border.BevelBorder;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -15,6 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JSplitPane;
 import java.awt.Font;
 import javax.swing.JTextPane;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.awt.event.ActionEvent;
 
 public class Mainmenu {
 
@@ -57,7 +64,7 @@ public class Mainmenu {
 		
 		JPanel panel = new JPanel();
 		frame2.getContentPane().add(panel);
-		panel.setLayout(new GridLayout(2, 0, 0, 0));
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblNewLabel_10 = new JLabel("DREAMBEACH");
 		lblNewLabel_10.setForeground(Color.BLACK);
@@ -67,11 +74,42 @@ public class Mainmenu {
 		panel.add(lblNewLabel_10);
 		
 		JButton btnNewButton = new JButton("informacion");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+		            Desktop.getDesktop().browse(new URI("https://www.dreambeach.es"));
+
+		        } catch (URISyntaxException ex) {
+
+		            System.out.println(ex);
+			} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		panel.add(btnNewButton);
+		
+		JButton btnNewButton_5 = new JButton("entradas\r\n");
+		btnNewButton_5.setActionCommand("Open10");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cmd10 = e.getActionCommand();
+
+		        if(cmd10.equals("Open10"))
+		        {
+		            frame2.dispose();
+		            new Pago();
+		            
+		        }
+			}
+		});
+		panel.add(btnNewButton_5);
 		
 		JPanel panel_1 = new JPanel();
 		frame2.getContentPane().add(panel_1);
-		panel_1.setLayout(new GridLayout(2, 0, 0, 0));
+		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblNewLabel_11 = new JLabel("MEDUSA");
 		lblNewLabel_11.setForeground(Color.BLACK);
@@ -80,11 +118,46 @@ public class Mainmenu {
 		panel_1.add(lblNewLabel_11);
 		
 		JButton btnNewButton_1 = new JButton("informacion");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+		            Desktop.getDesktop().browse(new URI("https://www.medusasunbeach.com"));
+
+		        } catch (URISyntaxException ex) {
+
+		            System.out.println(ex);
+
+		        }catch(IOException e1){
+
+		            System.out.println(e1);
+
+		        }
+		      
+		 }                                   
+			
+		});
 		panel_1.add(btnNewButton_1);
+		
+		JButton btnNewButton_6 = new JButton("entradas\r\n");
+		btnNewButton_6.setActionCommand("Open11");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cmd11 = e.getActionCommand();
+
+		        if(cmd11.equals("Open11"))
+		        {
+		            frame2.dispose();
+		            new Pago();
+		            
+		        }
+			}
+		});
+		panel_1.add(btnNewButton_6);
 		
 		JPanel panel_2 = new JPanel();
 		frame2.getContentPane().add(panel_2);
-		panel_2.setLayout(new GridLayout(2, 0, 0, 0));
+		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblNewLabel_12 = new JLabel("RIVERLAND\r\n");
 		lblNewLabel_12.setForeground(Color.BLACK);
@@ -93,11 +166,46 @@ public class Mainmenu {
 		panel_2.add(lblNewLabel_12);
 		
 		JButton btnNewButton_2 = new JButton("informacion");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+		            Desktop.getDesktop().browse(new URI("www.riverlandfestival.es"));
+
+		        } catch (URISyntaxException ex) {
+
+		            System.out.println(ex);
+
+		        }catch(IOException e2){
+
+		            System.out.println(e2);
+
+		        }
+		      
+		 }                                   
+			
+		});
 		panel_2.add(btnNewButton_2);
+		
+		JButton btnNewButton_7 = new JButton("entradas");
+		btnNewButton_7.setActionCommand("Open12");
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cmd12 = e.getActionCommand();
+
+		        if(cmd12.equals("Open12"))
+		        {
+		            frame2.dispose();
+		            new Pago();
+		            
+		        }
+			}
+		});
+		panel_2.add(btnNewButton_7);
 		
 		JPanel panel_3 = new JPanel();
 		frame2.getContentPane().add(panel_3);
-		panel_3.setLayout(new GridLayout(2, 0, 0, 0));
+		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblNewLabel_13 = new JLabel("BILBAO BBK");
 		lblNewLabel_13.setForeground(Color.BLACK);
@@ -106,11 +214,46 @@ public class Mainmenu {
 		panel_3.add(lblNewLabel_13);
 		
 		JButton btnNewButton_3 = new JButton("informacion");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+		            Desktop.getDesktop().browse(new URI("https://www.bilbaobbklive.com"));
+
+		        } catch (URISyntaxException ex) {
+
+		            System.out.println(ex);
+
+		        }catch(IOException e3){
+
+		            System.out.println(e3);
+
+		        }
+		      
+		 }                                   
+			
+		});
 		panel_3.add(btnNewButton_3);
+		
+		JButton btnNewButton_8 = new JButton("entradas");
+		btnNewButton_8.setActionCommand("Open13");
+		btnNewButton_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cmd13 = e.getActionCommand();
+
+		        if(cmd13.equals("Open13"))
+		        {
+		            frame2.dispose();
+		            new Pago();
+		            
+		        }
+			}
+		});
+		panel_3.add(btnNewButton_8);
 		
 		JPanel panel_4 = new JPanel();
 		frame2.getContentPane().add(panel_4);
-		panel_4.setLayout(new GridLayout(2, 0, 0, 0));
+		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblNewLabel_14 = new JLabel("VI\u00D1A ROCK\r\n");
 		lblNewLabel_14.setForeground(Color.BLACK);
@@ -119,7 +262,42 @@ public class Mainmenu {
 		panel_4.add(lblNewLabel_14);
 		
 		JButton btnNewButton_4 = new JButton("informacion");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+		            Desktop.getDesktop().browse(new URI("https://www.vina-rock.com"));
+
+		        } catch (URISyntaxException ex) {
+
+		            System.out.println(ex);
+
+		        }catch(IOException e4){
+
+		            System.out.println(e4);
+
+		        }
+		      
+		 }                                   
+			
+		});
 		panel_4.add(btnNewButton_4);
+		
+		JButton btnNewButton_9 = new JButton("entradas");
+		btnNewButton_9.setActionCommand("Open14");
+		btnNewButton_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cmd14 = e.getActionCommand();
+
+		        if(cmd14.equals("Open14"))
+		        {
+		            frame2.dispose();
+		            new Pago();
+		            
+		        }
+			}
+		});
+		panel_4.add(btnNewButton_9);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);

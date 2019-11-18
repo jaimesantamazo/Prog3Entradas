@@ -122,7 +122,7 @@ public class Register {
 		        if(cmd1.equals("Open1"))
 		        {
 		            frame1.dispose();
-		            new login();
+		            new Login();
 		        }
 			}
 		});
