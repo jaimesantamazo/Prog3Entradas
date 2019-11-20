@@ -1,61 +1,67 @@
 
-public class Usuario  {
-
-	private String nombre;
-	private String apellido1;
-	private String apellido2;
-	private String fechancto;
-	private String email;
-	private String pass;
-	private char permisos;
+public class usuario  {
 	
-	public Usuario(String nombre, String apellido1, String apellido2, String fechancto, String email, String pass,
-			char permisos) {
-		super();
+public class usuario {
+	private String username;
+	private String nombre;
+	private String apellido_1;
+	private String apellido_2;
+	private String fecha_nac;
+	private String email;
+	private String contraseña;
+	
+	public usuario(String username, String nombre, String apellido_1, String apellido_2, String fecha_nac, String email,
+			String contraseña) {
+		
+		this.username = username;
 		this.nombre = nombre;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
-		this.fechancto = fechancto;
+		this.apellido_1 = apellido_1;
+		this.apellido_2 = apellido_2;
+		this.fecha_nac = fecha_nac;
 		this.email = email;
-		this.pass = pass;
-		this.permisos = permisos;
+		this.contraseña = contraseña;
 	}
-
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public String getNombre() {
 		return nombre;
 	}
-
-	public String getApellido1() {
-		return apellido1;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-
-	public String getApellido2() {
-		return apellido2;
+	public String getApellido_1() {
+		return apellido_1;
 	}
-
-	public String getFechancto() {
-		return fechancto;
+	public void setApellido_1(String apellido_1) {
+		this.apellido_1 = apellido_1;
 	}
-
+	public String getApellido_2() {
+		return apellido_2;
+	}
+	public void setApellido_2(String apellido_2) {
+		this.apellido_2 = apellido_2;
+	}
+	public String getFecha_nac() {
+		return fecha_nac;
+	}
+	public void setFecha_nac(String fecha_nac) {
+		this.fecha_nac = fecha_nac;
+	}
 	public String getEmail() {
 		return email;
 	}
-
-	public String getPass() {
-		return pass;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
-	public char getPermisos() {
-		return permisos;
+	public String getContraseña() {
+		return contraseña;
 	}
-
-	public String getPrintablePermissions () {
-		if (this.permisos=='a') {
-			return "Administrador";
-		}else {
-			return "Cliente registrado";
-		}
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
-	
-	
+		
 }
