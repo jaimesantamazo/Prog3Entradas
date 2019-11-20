@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Color;
@@ -20,8 +21,8 @@ import java.awt.event.ActionEvent;
 public class Login {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField textFielduser;
+	private JPasswordField passwordFielduser;
 
 	/**
 	 * Launch the application.
@@ -65,14 +66,14 @@ public class Login {
 		lblNewLabel_1.setBounds(59, 138, 91, 20);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(204, 82, 146, 26);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		textFielduser = new JTextField();
+		textFielduser.setBounds(204, 82, 146, 26);
+		frame.getContentPane().add(textFielduser);
+		textFielduser.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(204, 135, 146, 26);
-		frame.getContentPane().add(passwordField);
+		passwordFielduser = new JPasswordField();
+		passwordFielduser.setBounds(204, 135, 146, 26);
+		frame.getContentPane().add(passwordFielduser);
 		
 		JButton btnNewButton = new JButton("Cancel\r\n");
 		btnNewButton.setBackground(Color.RED);
@@ -81,6 +82,11 @@ public class Login {
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Login\r\n");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ingresar();
+			}
+		});
 		btnNewButton_1.setBackground(Color.GREEN);
 		btnNewButton_1.setBounds(285, 194, 115, 29);
 		frame.getContentPane().add(btnNewButton_1);
@@ -111,5 +117,26 @@ public class Login {
 		btnNuevaCuenta.setBackground(Color.YELLOW);
 		btnNuevaCuenta.setBounds(15, 252, 135, 32);
 		frame.getContentPane().add(btnNuevaCuenta);
+	}
+
+	protected void ingresar() {
+		String usuario = textFielduser.getText();
+		String contraseña = String.valueOf(passwordFielduser.getPassword());
+		
+		gestionusuario gestionusuario = new gestionusuario();
+		usuario usuario2 = new usuario();
+		usuario2.setUsername(usuario);
+		usuario2.setContraseña(contraseña);
+		usuario usu = gestionusuario.obtenerusuario(usuario2);
+		
+		if(usu!=null) {
+			frame.dispose();
+			JOptionPane.showMessageDialog(frame, "bienvenido");
+			new Mainmenu();
+			
+		}else{
+			JOptionPane.showMessageDialog(frame, "Datos no validos", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		
 	}
 }

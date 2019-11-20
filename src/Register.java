@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JTextField;
@@ -12,6 +13,7 @@ import javax.swing.SwingUtilities;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.sql.*;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -25,7 +27,6 @@ public class Register {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
 
 	/**
 	 * Launch the application.
@@ -69,7 +70,7 @@ public class Register {
 		lblNewLabel_1.setBounds(46, 191, 87, 20);
 		frame1.getContentPane().add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Apellido 2");
+		JLabel lblNewLabel_2 = new JLabel("Apellido 2:");
 		lblNewLabel_2.setBounds(46, 227, 135, 20);
 		frame1.getContentPane().add(lblNewLabel_2);
 		
@@ -79,13 +80,58 @@ public class Register {
 		
 		JButton btnNewButton = new JButton("Cancel\r\n");
 		btnNewButton.setBackground(Color.RED);
-		btnNewButton.setBounds(46, 435, 115, 29);
+		btnNewButton.setBounds(46, 407, 115, 29);
 		frame1.getContentPane().add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Login\r\n");
+		JButton btnNewButton_1 = new JButton("Registrarse\r\n");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				conexion conexion = new conexion();
+				Connection cn = conexion.conectar();
+				String username;
+				String contraseña;
+				String nombre;
+				String apellido_1;
+				String apellido_2;
+				String fecha_nac;
+				String email;
+				String sql = "";
+				username = textField.getText();
+				contraseña = String.valueOf(passwordField.getPassword());
+				nombre = textField_4.getText();
+				apellido_1 = textField_2.getText();
+				apellido_2 = textField_3.getText();
+				fecha_nac = textField_5.getText();
+				email = textField_1.getText();
+				sql = "INSERT INTO usuario (username, contraseña, nombre, apellido_1, apellido_2, fecha_nac, email) VALUES(?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = cn.prepareStatement(sql);
+					pst.setString(1, username);
+					pst.setString(2, contraseña);
+					pst.setString(3, nombre);
+					pst.setString(4, apellido_1);
+					pst.setString(5, apellido_2);
+					pst.setString(6, fecha_nac);
+					pst.setString(7, email);
+					int n = pst.executeUpdate();
+					if(n>0) {
+						JOptionPane.showMessageDialog(null, "usuario registrado");
+						frame1.dispose();
+						new Login();
+					}
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+				
+				
+				
+			}
+		});
 		btnNewButton_1.setBackground(Color.GREEN);
 		btnNewButton_1.setForeground(Color.BLACK);
-		btnNewButton_1.setBounds(259, 435, 115, 29);
+		btnNewButton_1.setBounds(242, 407, 115, 29);
 		frame1.getContentPane().add(btnNewButton_1);
 		
 		textField = new JTextField();
@@ -127,7 +173,7 @@ public class Register {
 			}
 		});
 		btnVueltaAlLogin.setBackground(Color.YELLOW);
-		btnVueltaAlLogin.setBounds(15, 497, 146, 31);
+		btnVueltaAlLogin.setBounds(126, 497, 146, 31);
 		frame1.getContentPane().add(btnVueltaAlLogin);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -147,10 +193,6 @@ public class Register {
 		lblContrasea.setBounds(46, 337, 103, 20);
 		frame1.getContentPane().add(lblContrasea);
 		
-		JLabel lblRepetirContrasea = new JLabel("Repetir contrase\u00F1a:");
-		lblRepetirContrasea.setBounds(46, 373, 146, 20);
-		frame1.getContentPane().add(lblRepetirContrasea);
-		
 		textField_5 = new JTextField();
 		textField_5.setBounds(197, 298, 146, 26);
 		frame1.getContentPane().add(textField_5);
@@ -159,9 +201,5 @@ public class Register {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(197, 334, 146, 26);
 		frame1.getContentPane().add(passwordField);
-		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(197, 370, 146, 26);
-		frame1.getContentPane().add(passwordField_1);
 	}
 }
