@@ -7,11 +7,12 @@ public class usuario {
 	private String apellido_2;
 	private String fecha_nac;
 	private String contraseña;
+	private String admin;
 	
 	public usuario() {}
 	
 	public usuario(String username, String email, String nombre, String apellido_1, String apellido_2, String fecha_nac,
-			String contraseña) {
+			String contraseña, String admin) {
 		
 		this.username = username;
 		this.email = email;
@@ -20,6 +21,7 @@ public class usuario {
 		this.apellido_2 = apellido_2;
 		this.fecha_nac = fecha_nac;
 		this.contraseña = contraseña;
+		this.admin = admin;
 	}
 
 	public String getUsername() {
@@ -76,6 +78,12 @@ public class usuario {
 
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
+	}
+	public String getadmin() {
+		return admin;
+	}
+	public void setadmin(String admin) {
+		this.admin = admin;
 	}
 	
 }

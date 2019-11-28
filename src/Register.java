@@ -95,6 +95,7 @@ public class Register {
 				String apellido_2;
 				String fecha_nac;
 				String email;
+				String admin;
 				String sql = "";
 				username = textField.getText();
 				contraseña = String.valueOf(passwordField.getPassword());
@@ -103,7 +104,8 @@ public class Register {
 				apellido_2 = textField_3.getText();
 				fecha_nac = textField_5.getText();
 				email = textField_1.getText();
-				sql = "INSERT INTO usuario (username, contraseña, nombre, apellido_1, apellido_2, fecha_nac, email) VALUES(?,?,?,?,?,?,?)";
+				admin = "0";
+				sql = "INSERT INTO usuario (username, contraseña, nombre, apellido_1, apellido_2, fecha_nac, email, admin) VALUES(?,?,?,?,?,?,?,?)";
 				try {
 					PreparedStatement pst = cn.prepareStatement(sql);
 					pst.setString(1, username);
@@ -113,6 +115,7 @@ public class Register {
 					pst.setString(5, apellido_2);
 					pst.setString(6, fecha_nac);
 					pst.setString(7, email);
+					pst.setString(8, admin);
 					int n = pst.executeUpdate();
 					if(n>0) {
 						JOptionPane.showMessageDialog(null, "usuario registrado");
@@ -123,9 +126,6 @@ public class Register {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				
-				
-				
 				
 			}
 		});
