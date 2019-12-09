@@ -129,11 +129,7 @@ public class Pago {
 		});
 		comboBox.setBounds(212, 97, 278, 26);
 		frame3.getContentPane().add(comboBox);
-		comboBox.addItem("entrada para el dreambeach");
-		comboBox.addItem("entrada para el medusa");
-		comboBox.addItem("entrada para el riverland");
-		comboBox.addItem("entrada para el bilbao bbk");
-		comboBox.addItem("entrada para el viñarock");
+		
 		
 		JLabel lblFestival = new JLabel("Festival:");
 		lblFestival.setBounds(58, 100, 69, 20);

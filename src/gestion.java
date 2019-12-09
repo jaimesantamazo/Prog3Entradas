@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class gestion {
 
@@ -58,7 +60,9 @@ public class gestion {
 		lblGestion.setBounds(383, 27, 69, 20);
 		frame.getContentPane().add(lblGestion);
 		
-		JList list = new JList();
+		DefaultListModel<String> listmodel = new DefaultListModel<String>();
+		JList<String> list = new JList<String>(listmodel);
+		list.setFixedCellWidth(10);
 		list.setBounds(15, 300, 402, 260);
 		frame.getContentPane().add(list);
 		
@@ -107,6 +111,9 @@ public class gestion {
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
+				}
+				if(!textField.getText().isEmpty() && !textField_1.getText().isEmpty() && !textField_2.getText().isEmpty() && !textField_3.getText().isEmpty() && !textField_4.getText().isEmpty() && !textField_5.getText().isEmpty()) {
+					listmodel.addElement(textField.getText()+","+textField_1.getText()+","+textField_2.getText()+","+textField_3.getText()+","+textField_4.getText()+","+textField_5.getText());
 				}
 				
 			
@@ -211,5 +218,25 @@ public class gestion {
 		textField_5.setBounds(117, 230, 240, 26);
 		frame.getContentPane().add(textField_5);
 		textField_5.setColumns(10);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(15, 561, 402, -259);
+		frame.getContentPane().add(scrollPane);
+		
+		JButton btnVueltaAlPago = new JButton("vuelta al pago");
+		btnVueltaAlPago.setActionCommand("Open30");
+		btnVueltaAlPago.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cmd = e.getActionCommand();
+				 if(cmd.equals("Open30"))
+			        {
+			            frame.dispose();
+			            new Pago();
+			            
+			        }
+			}
+		});
+		btnVueltaAlPago.setBounds(15, 16, 131, 29);
+		frame.getContentPane().add(btnVueltaAlPago);
 	}
 }
