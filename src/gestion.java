@@ -7,12 +7,15 @@ import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
+
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import java.awt.Font;
 
 public class gestion {
 
@@ -57,22 +60,15 @@ public class gestion {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblGestion = new JLabel("Gestion");
-		lblGestion.setBounds(383, 27, 69, 20);
+		lblGestion.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblGestion.setBounds(167, 25, 111, 20);
 		frame.getContentPane().add(lblGestion);
 		
 		DefaultListModel<String> listmodel = new DefaultListModel<String>();
 		JList<String> list = new JList<String>(listmodel);
 		list.setFixedCellWidth(10);
-		list.setBounds(15, 300, 402, 260);
+		list.setBounds(426, 80, 402, 455);
 		frame.getContentPane().add(list);
-		
-		JList list_1 = new JList();
-		list_1.setBounds(432, 300, 430, 260);
-		frame.getContentPane().add(list_1);
-		
-		JButton btnBorrarUsuario = new JButton("borrar usuario");
-		btnBorrarUsuario.setBounds(588, 265, 133, 29);
-		frame.getContentPane().add(btnBorrarUsuario);
 		
 		JButton btnAadirEvento = new JButton("a\u00F1adir evento");
 		btnAadirEvento.addActionListener(new ActionListener() {
@@ -119,7 +115,7 @@ public class gestion {
 			
 			}
 		});
-		btnAadirEvento.setBounds(25, 265, 133, 29);
+		btnAadirEvento.setBounds(45, 454, 133, 29);
 		frame.getContentPane().add(btnAadirEvento);
 		
 		JButton btnEliminarEvento = new JButton("eliminar evento");
@@ -162,60 +158,60 @@ public class gestion {
 				}
 			}
 		});
-		btnEliminarEvento.setBounds(264, 265, 141, 29);
+		btnEliminarEvento.setBounds(235, 454, 141, 29);
 		frame.getContentPane().add(btnEliminarEvento);
 		
 		JLabel lblCodigo = new JLabel("Codigo:");
-		lblCodigo.setBounds(25, 63, 69, 20);
+		lblCodigo.setBounds(45, 99, 69, 20);
 		frame.getContentPane().add(lblCodigo);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(25, 99, 69, 20);
+		lblNombre.setBounds(45, 160, 69, 20);
 		frame.getContentPane().add(lblNombre);
 		
 		JLabel lblNewLabel = new JLabel("Precio:");
-		lblNewLabel.setBounds(25, 135, 69, 20);
+		lblNewLabel.setBounds(45, 218, 69, 20);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblFechainicio = new JLabel("fecha_inicio:");
-		lblFechainicio.setBounds(25, 174, 105, 20);
+		lblFechainicio.setBounds(41, 273, 105, 20);
 		frame.getContentPane().add(lblFechainicio);
 		
 		JLabel lblFechafin = new JLabel("fecha_fin:");
-		lblFechafin.setBounds(25, 206, 89, 20);
+		lblFechafin.setBounds(41, 330, 89, 20);
 		frame.getContentPane().add(lblFechafin);
 		
 		JLabel lblCantidad = new JLabel("Cantidad:");
-		lblCantidad.setBounds(25, 233, 69, 20);
+		lblCantidad.setBounds(45, 385, 69, 20);
 		frame.getContentPane().add(lblCantidad);
 		
 		textField = new JTextField();
-		textField.setBounds(117, 60, 240, 26);
+		textField.setBounds(138, 96, 240, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(117, 96, 240, 26);
+		textField_1.setBounds(138, 157, 240, 26);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(117, 132, 240, 26);
+		textField_2.setBounds(138, 215, 240, 26);
 		frame.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
 		textField_3 = new JTextField();
-		textField_3.setBounds(117, 171, 240, 26);
+		textField_3.setBounds(138, 270, 240, 26);
 		frame.getContentPane().add(textField_3);
 		textField_3.setColumns(10);
 		
 		textField_4 = new JTextField();
-		textField_4.setBounds(117, 203, 240, 26);
+		textField_4.setBounds(138, 327, 240, 26);
 		frame.getContentPane().add(textField_4);
 		textField_4.setColumns(10);
 		
 		textField_5 = new JTextField();
-		textField_5.setBounds(117, 230, 240, 26);
+		textField_5.setBounds(138, 382, 240, 26);
 		frame.getContentPane().add(textField_5);
 		textField_5.setColumns(10);
 		
@@ -236,7 +232,23 @@ public class gestion {
 			        }
 			}
 		});
-		btnVueltaAlPago.setBounds(15, 16, 131, 29);
+		btnVueltaAlPago.setBounds(15, 531, 131, 29);
 		frame.getContentPane().add(btnVueltaAlPago);
+		
+		JButton btnGuardarDatos = new JButton("guardar datos");
+		btnGuardarDatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListModel<String> model = list.getModel();
+				 for(int i = 0; i < model.getSize(); i++) {
+				     System.out.println(model.getElementAt(i));
+				 }
+			}
+		});
+		btnGuardarDatos.setBounds(452, 23, 141, 29);
+		frame.getContentPane().add(btnGuardarDatos);
+		
+		JButton btnCargarDatos = new JButton("cargar datos");
+		btnCargarDatos.setBounds(676, 23, 133, 29);
+		frame.getContentPane().add(btnCargarDatos);
 	}
 }
