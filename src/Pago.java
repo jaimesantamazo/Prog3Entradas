@@ -12,6 +12,9 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -29,6 +32,8 @@ public class Pago {
 	private int limiteCCV=3;
 	private int limiteFecha=4;
 	private int limiteDNI=9;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -65,32 +70,32 @@ public class Pago {
 		frame3.getContentPane().setLayout(null);
 
 		JLabel lblCorreo = new JLabel("E-mail:");
-		lblCorreo.setBounds(58, 143, 69, 20);
+		lblCorreo.setBounds(25, 143, 69, 20);
 		frame3.getContentPane().add(lblCorreo);
 
 		textemail = new JTextField();
-		textemail.setBounds(212, 140, 278, 26);
+		textemail.setBounds(205, 140, 258, 26);
 		frame3.getContentPane().add(textemail);
 		textemail.setColumns(10);
 
 
 		JLabel lblNumeroTarjeta = new JLabel("Numero tarjeta:");
-		lblNumeroTarjeta.setBounds(58, 179, 126, 20);
+		lblNumeroTarjeta.setBounds(25, 179, 126, 20);
 		frame3.getContentPane().add(lblNumeroTarjeta);
 
 
 		JLabel lblFecha = new JLabel("Fecha:");
-		lblFecha.setBounds(58, 210, 69, 20);
+		lblFecha.setBounds(25, 210, 69, 20);
 		frame3.getContentPane().add(lblFecha);
 
 
 		JLabel lblCcv = new JLabel("CCV:");
-		lblCcv.setBounds(58, 240, 69, 20);
+		lblCcv.setBounds(25, 246, 69, 20);
 		frame3.getContentPane().add(lblCcv);
 
 
 		JLabel lblDniCliente = new JLabel("DNI cliente:");
-		lblDniCliente.setBounds(58, 270, 126, 20);
+		lblDniCliente.setBounds(25, 277, 126, 20);
 		frame3.getContentPane().add(lblDniCliente);
 
 
@@ -102,12 +107,12 @@ public class Pago {
 		frame3.getContentPane().add(lblIntroduceLosDatos);
 
 		textemail = new JTextField();
-		textemail.setBounds(212, 140, 278, 26);
+		textemail.setBounds(212, 140, 250, 26);
 		frame3.getContentPane().add(textemail);
 		textemail.setColumns(10);
 
 		textTarjeta= new JTextField();
-		textTarjeta.setBounds(212, 173, 278, 26);
+		textTarjeta.setBounds(205, 176, 258, 26);
 		frame3.getContentPane().add(textTarjeta);
 		textTarjeta.setColumns(10);
 
@@ -129,7 +134,7 @@ public class Pago {
 		}
 		});
 		textFecha = new JTextField();
-		textFecha.setBounds(212, 210, 111, 26);
+		textFecha.setBounds(205, 207, 132, 26);
 		frame3.getContentPane().add(textFecha);
 		textFecha.setColumns(10);
 
@@ -154,7 +159,7 @@ public class Pago {
 
 
 		textCCV = new JTextField();
-		textCCV.setBounds(212, 240, 111, 26);
+		textCCV.setBounds(205, 243, 132, 26);
 		frame3.getContentPane().add(textCCV);
 		textCCV.setColumns(10);
 
@@ -191,7 +196,22 @@ public class Pago {
 				}else {
 					JOptionPane.showMessageDialog(null, "Gracias por su compra");
 				}
-			}
+				conexion conexion = new conexion();
+				Connection cn4 = conexion.conectar();
+				String nombre;
+				int cantidad = 0;
+				String sql4 = "";
+				nombre = textField_1.getText();
+				sql4 = "update entradas set cantidad = cantidad-1 where nombre = ?";
+				try {
+					PreparedStatement pst4 = cn4.prepareStatement(sql4);
+					pst4.setString(2, nombre);
+					pst4.setInt(6, cantidad);
+				} catch(SQLException e1) {
+					e1.printStackTrace();
+				}
+			}		
+			
 		});
 
 
@@ -213,25 +233,64 @@ public class Pago {
 		btnCancel.setBounds(97, 313, 115, 29);
 		frame3.getContentPane().add(btnCancel);
 
-
-
 		JComboBox comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		comboBox.setBounds(212, 97, 278, 26);
+		comboBox.addItem("concierto1");
+		comboBox.addItem("concierto2");
+		comboBox.setBounds(185, 66, 132, 26);
 		frame3.getContentPane().add(comboBox);
 		
 
 		JLabel lblFestival = new JLabel("Festival:");
-		lblFestival.setBounds(58, 100, 69, 20);
+		lblFestival.setBounds(25, 69, 69, 20);
 		frame3.getContentPane().add(lblFestival);
 
 		JButton btnGestion = new JButton("gestion");
+		btnGestion.setActionCommand("Open40");
+		btnGestion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					String cmd = e.getActionCommand();
+
+				    if(cmd.equals("Open40"))
+				        {
+				            frame3.dispose();
+				            new gestion();
+				            
+				        }
+					}
+				});
+			
 		btnGestion.setBounds(466, 358, 83, 29);
 		frame3.getContentPane().add(btnGestion);
+		
+		textField = new JTextField();
+		textField.setBounds(205, 274, 132, 26);
+		frame3.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblConciertoSeleccionado = new JLabel("concierto seleccionado:");
+		lblConciertoSeleccionado.setBounds(26, 107, 174, 20);
+		frame3.getContentPane().add(lblConciertoSeleccionado);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(205, 108, 258, 26);
+		frame3.getContentPane().add(textField_1);
+		textField_1.setColumns(10);
+		
+		JButton btnSeleccion = new JButton("seleccion");
+		btnSeleccion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField_1.setText(comboBox.getSelectedItem().toString());
+			}
+		});
+		btnSeleccion.setBounds(332, 65, 115, 29);
+		frame3.getContentPane().add(btnSeleccion);
+		
+		String admin = "1";
+		if(admin == "1") {
+			btnGestion.setVisible(true);
+		}else {
+			btnGestion.setVisible(false);
+		}
 
 	}
 } 
