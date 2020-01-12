@@ -15,19 +15,43 @@ import javax.swing.SwingUtilities;
 import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Login {
 
 	private JFrame frame;
 	private JTextField textFielduser;
 	private JPasswordField passwordFielduser;
+	static Logger log;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+			log = Logger.getLogger("logger");
+			Handler h = new FileHandler("Datosprograma.xml");
+			log.addHandler(h);
+			//log.setUseParentHandlers(false);
+			log.setLevel(Level.FINEST);
+			h.setLevel(Level.FINEST);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
+		log.log(Level.INFO, "Inicio del programa " + new Date());
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -38,6 +62,12 @@ public class Login {
 				}
 			}
 		});
+	}catch(Exception e) {
+		log.log(Level.SEVERE, "Error en el inicio de la aplicacion",e);
+		e.printStackTrace();
+		JOptionPane.showMessageDialog(null, "Error grave", "ERROR",JOptionPane.ERROR_MESSAGE);
+	}
+		
 	}
 
 	/**
@@ -57,6 +87,7 @@ public class Login {
 		frame.setBounds(100, 100, 547, 399);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
 		
 		JLabel lblNewLabel = new JLabel("Username:\r\n");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -79,13 +110,14 @@ public class Login {
 		passwordFielduser.setBounds(204, 172, 220, 35);
 		frame.getContentPane().add(passwordFielduser);
 		
-		JButton btnNewButton = new JButton("Cancel\r\n");
+		JButton btnNewButton = new JButton("Salir\r\n");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
+				Login.log.log(Level.INFO,"Fin del programa");
+				
 			}
 		});
-		btnNewButton.setBackground(Color.RED);
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setBounds(59, 237, 115, 29);
 		frame.getContentPane().add(btnNewButton);
@@ -94,17 +126,17 @@ public class Login {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ingresar();
+				
 			}
 		});
-		btnNewButton_1.setBackground(Color.GREEN);
 		btnNewButton_1.setBounds(359, 237, 115, 29);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JLabel lblIntroduceTusDatos = new JLabel("Bienvenido, loggeate para continuar\r\n");
 		lblIntroduceTusDatos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroduceTusDatos.setBackground(Color.WHITE);
-		lblIntroduceTusDatos.setFont(new Font("Comic Sans MS", Font.BOLD, 17));
-		lblIntroduceTusDatos.setBounds(15, 16, 398, 50);
+		lblIntroduceTusDatos.setFont(new Font("Tahoma", Font.BOLD, 23));
+		lblIntroduceTusDatos.setBounds(35, 16, 439, 50);
 		frame.getContentPane().add(lblIntroduceTusDatos);
 		
 		JButton btnNuevaCuenta = new JButton("Nueva cuenta\r\n");
@@ -132,17 +164,18 @@ public class Login {
 		String usuario = textFielduser.getText();
 		String contraseña = String.valueOf(passwordFielduser.getPassword());
 		
-		gestionusuario gestionusuario = new gestionusuario();
-		usuario usuario2 = new usuario();
+		Gestionusuario gestionusuario = new Gestionusuario();
+		Usuario usuario2 = new Usuario();
 		usuario2.setUsername(usuario);
 		usuario2.setContraseña(contraseña);
 		
-		usuario usu = gestionusuario.obtenerusuario(usuario2);
+		Usuario usu = gestionusuario.obtenerusuario(usuario2);
 			
 		if(usu!=null) {
 			frame.dispose();
 			JOptionPane.showMessageDialog(frame, "bienvenido");
-			new Pago();
+			new Menu();
+			Login.log.log(Level.FINER,"Usuario conectado: " + usuario);
 			
 		}else{
 			JOptionPane.showMessageDialog(frame, "Datos no validos", "error", JOptionPane.ERROR_MESSAGE);

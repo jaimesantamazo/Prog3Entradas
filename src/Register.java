@@ -13,7 +13,15 @@ import javax.swing.SwingUtilities;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.sql.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.logging.Level;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -27,6 +35,11 @@ public class Register {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JPasswordField passwordField;
+	static PrintStream log;
+	HashMap<String, String> usuarios = new HashMap<String, String>();
+	private static final String EMAIL_PATTER = 
+		    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 	/**
 	 * Launch the application.
@@ -78,15 +91,31 @@ public class Register {
 		lblNewLabel_3.setBounds(46, 123, 69, 20);
 		frame1.getContentPane().add(lblNewLabel_3);
 		
-		JButton btnNewButton = new JButton("Cancel\r\n");
-		btnNewButton.setBackground(Color.RED);
+		Conexion conexion4 = new Conexion();
+		Connection cn4 = conexion4.conectar();
+		
+		JButton btnNewButton = new JButton("Cancelar\r\n");
+		btnNewButton.setActionCommand("Open70");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+						String cmd = e.getActionCommand();
+
+				        if(cmd.equals("Open70"))
+				        {
+				            frame1.dispose();
+				            new Login();
+				            
+				        }
+					}
+				});
+				
 		btnNewButton.setBounds(46, 407, 115, 29);
 		frame1.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Registrarse\r\n");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				conexion conexion = new conexion();
+				Conexion conexion = new Conexion();
 				Connection cn = conexion.conectar();
 				String username;
 				String contraseña;
@@ -105,31 +134,50 @@ public class Register {
 				fecha_nac = textField_5.getText();
 				email = textField_1.getText();
 				admin = "0";
-				sql = "INSERT INTO usuario (username, contraseña, nombre, apellido_1, apellido_2, fecha_nac, email, admin) VALUES(?,?,?,?,?,?,?,?)";
-				try {
-					PreparedStatement pst = cn.prepareStatement(sql);
-					pst.setString(1, username);
-					pst.setString(2, contraseña);
-					pst.setString(3, nombre);
-					pst.setString(4, apellido_1);
-					pst.setString(5, apellido_2);
-					pst.setString(6, fecha_nac);
-					pst.setString(7, email);
-					pst.setString(8, admin);
-					int n = pst.executeUpdate();
-					if(n>0) {
-						JOptionPane.showMessageDialog(null, "usuario registrado");
-						frame1.dispose();
-						new Login();
-					}
+				
+				Gestionusuario2 gestionusuario2 = new Gestionusuario2();
+				Usuario usuario2 = new Usuario();
+				usuario2.setUsername(username);
+				
+				
+				Usuario usu = gestionusuario2.obtenerusuario2(usuario2);
 					
-				} catch (SQLException e) {
-					e.printStackTrace();
+				if(usu!=null) {
+					JOptionPane.showMessageDialog(null, "Usuario ya utilizado","ERROR", JOptionPane.ERROR_MESSAGE);
+				}else{
+					if (!email.matches(EMAIL_PATTER)) {
+						JOptionPane.showMessageDialog(null, "Email no valido", "ERROR", JOptionPane.ERROR_MESSAGE);
+					}else {
+					sql = "INSERT INTO usuario (username, contraseña, nombre, apellido_1, apellido_2, fecha_nac, email, admin) VALUES(?,?,?,?,?,?,?,?)";
+					try {
+						PreparedStatement pst = cn.prepareStatement(sql);
+						pst.setString(1, username);
+						pst.setString(2, contraseña);
+						pst.setString(3, nombre);
+						pst.setString(4, apellido_1);
+						pst.setString(5, apellido_2);
+						pst.setString(6, fecha_nac);
+						pst.setString(7, email);
+						pst.setString(8, admin);
+						int n = pst.executeUpdate();
+						if(n>0) {
+							JOptionPane.showMessageDialog(null, "usuario registrado");
+							Login.log.log(Level.FINER,"Usuario registrado: "+username);
+							usuarios.put(textField.getText(),String.valueOf(passwordField.getPassword()));
+							frame1.dispose();
+							new Login();
+						}
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Los datos no son validos" +e.getMessage(),"ERROR", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				
+				
+				
 			}
-		});
-		btnNewButton_1.setBackground(Color.GREEN);
+			}});
 		btnNewButton_1.setForeground(Color.BLACK);
 		btnNewButton_1.setBounds(242, 407, 115, 29);
 		frame1.getContentPane().add(btnNewButton_1);
@@ -148,14 +196,48 @@ public class Register {
 		textField_2.setBounds(197, 188, 146, 26);
 		frame1.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
+		textField_2.addKeyListener(new KeyListener(){
+
+			public void keyTyped(KeyEvent e){
+				char c= e.getKeyChar();
+				if (!Character.isAlphabetic(c))
+
+			     e.consume();
+
+			}
+
+			public void keyPressed(KeyEvent arg0) {
+			}
+
+			public void keyReleased(KeyEvent arg0) {
+			}
+			});
+		
 		
 		textField_3 = new JTextField();
 		textField_3.setBounds(197, 224, 146, 26);
 		frame1.getContentPane().add(textField_3);
 		textField_3.setColumns(10);
+		textField_3.addKeyListener(new KeyListener(){
+
+			public void keyTyped(KeyEvent e){
+				char c= e.getKeyChar();
+				if (!Character.isAlphabetic(c))
+
+			     e.consume();
+
+			}
+
+			public void keyPressed(KeyEvent arg0) {
+			}
+
+			public void keyReleased(KeyEvent arg0) {
+			}
+			});
+		
 		
 		JLabel lblIntroduceTusDatos = new JLabel("Introduce tus datos para crear una cuenta nueva");
-		lblIntroduceTusDatos.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblIntroduceTusDatos.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblIntroduceTusDatos.setBounds(15, 16, 398, 52);
 		frame1.getContentPane().add(lblIntroduceTusDatos);
 		
@@ -172,7 +254,6 @@ public class Register {
 		        }
 			}
 		});
-		btnVueltaAlLogin.setBackground(Color.YELLOW);
 		btnVueltaAlLogin.setBounds(126, 497, 146, 31);
 		frame1.getContentPane().add(btnVueltaAlLogin);
 		
@@ -184,6 +265,22 @@ public class Register {
 		textField_4.setBounds(197, 152, 146, 26);
 		frame1.getContentPane().add(textField_4);
 		textField_4.setColumns(10);
+		textField_4.addKeyListener(new KeyListener(){
+
+			public void keyTyped(KeyEvent e){
+				char c= e.getKeyChar();
+				if (!Character.isAlphabetic(c))
+
+			     e.consume();
+
+			}
+
+			public void keyPressed(KeyEvent arg0) {
+			}
+
+			public void keyReleased(KeyEvent arg0) {
+			}
+			});
 		
 		JLabel lblFechaNacimiento = new JLabel("Fecha nacimiento:");
 		lblFechaNacimiento.setBounds(46, 301, 135, 20);
@@ -201,5 +298,6 @@ public class Register {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(197, 334, 146, 26);
 		frame1.getContentPane().add(passwordField);
+		
 	}
 }

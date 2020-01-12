@@ -1,18 +1,18 @@
 
-
-public class usuario {
+public class Usuario {
 	private String username;
 	private String email;
 	private String nombre;
 	private String apellido_1;
 	private String apellido_2;
 	private String fecha_nac;
-	private String contraseÃ±a;
+	private String contraseña;
+	private String admin;
 	
-	public usuario() {}
+	public Usuario() {}
 	
-	public usuario(String username, String email, String nombre, String apellido_1, String apellido_2, String fecha_nac,
-			String contraseÃ±a) {
+	public Usuario(String username, String email, String nombre, String apellido_1, String apellido_2, String fecha_nac,
+			String contraseña, String admin) {
 		
 		this.username = username;
 		this.email = email;
@@ -20,7 +20,8 @@ public class usuario {
 		this.apellido_1 = apellido_1;
 		this.apellido_2 = apellido_2;
 		this.fecha_nac = fecha_nac;
-		this.contraseÃ±a = contraseÃ±a;
+		this.contraseña = contraseña;
+		this.admin = admin;
 	}
 
 	public String getUsername() {
@@ -71,12 +72,18 @@ public class usuario {
 		this.fecha_nac = fecha_nac;
 	}
 
-	public String getContraseÃ±a() {
-		return contraseÃ±a;
+	public String getContraseña() {
+		return contraseña;
 	}
 
-	public void setContraseÃ±a(String contraseÃ±a) {
-		this.contraseÃ±a = contraseÃ±a;
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+	public String getadmin() {
+		return admin;
+	}
+	public void setadmin(String admin) {
+		this.admin = admin;
 	}
 	
 }
